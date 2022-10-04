@@ -1,5 +1,8 @@
 import { Model, DataTypes } from "sequelize";
 import { database } from "../database/db";
+import { Cliente } from "./Cliente";
+import { Producto } from "./Producto";
+import { ProductoVenta } from "./ProductoVenta";
 
 export class Venta extends Model {
   public fechaVenta!: Date;
@@ -7,9 +10,6 @@ export class Venta extends Model {
   public impuesto!: number;
   public descuento!: number;
   public total!: number;
-  public cratedAt!: Date;
-  public Actualizado!: Date;
-
 }
 
 export interface VentaI {
@@ -18,8 +18,6 @@ export interface VentaI {
     impuesto: number;
     descuento: number;
     total: number;
-    cratedAt: Date;
-    Actualizado: Date;
 }
 
 Venta.init(
@@ -44,15 +42,7 @@ Venta.init(
     total: {
         type: DataTypes.FLOAT,
         allowNull: false
-      },
-      createAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      } ,
-      actualizado: {
-        type: DataTypes.DATE,
-        allowNull: false
-      }  
+      }, 
   },
   {
     tableName: "venta",
@@ -60,3 +50,9 @@ Venta.init(
     timestamps: true
   }
 );
+
+Cliente.hasMany(Venta)
+Venta.belongsTo(Cliente)
+
+Venta.belongsToMany(Producto, { through: ProductoVenta, foreignKey: 'venta_id' });
+Producto.belongsToMany(Venta, { through: ProductoVenta, foreignKey: 'producto_is' });

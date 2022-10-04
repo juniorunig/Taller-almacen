@@ -1,10 +1,10 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
-import { Routes } from '../routes/index';   
+import { Routes } from '../routes/index';
 var cors = require("cors"); // install en node y types
 
 export class App {
-    public routePrv: Routes =  new Routes();
+    public routePrv: Routes = new Routes();
     app: Application;
 
     constructor(
@@ -31,11 +31,10 @@ export class App {
         this.routePrv.ventaRoutes.routes(this.app)
         this.routePrv.productoRoutes.routes(this.app)
         this.routePrv.tipoProductoRoutes.routes(this.app)
-        this.routePrv.productoventa.routes(this.app)
     }
 
 
-   async listen() {
+    async listen() {
         await this.app.listen(this.app.get('port'));
         // await this.app.listen(this.port);
         // console.log('Server on port', this.port);

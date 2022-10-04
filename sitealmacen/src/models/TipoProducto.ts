@@ -1,17 +1,15 @@
 import { Model, DataTypes } from "sequelize";
 import { database } from "../database/db";
+import { Producto } from "./Producto";
 
 export class tipoProducto extends Model {
   public nombre!: string;
-  public createdAt!: Date;
-  public updateAt!: Date;
 }
 
 
 export interface tipoProductoI {
  nombre: string;
- createdAt: Date;
- updateAt: Date;
+ 
 }
 
 tipoProducto.init(
@@ -20,14 +18,6 @@ tipoProducto.init(
         type: DataTypes.STRING,
         allowNull: false
       }, 
-      createdAt: {
-         type: DataTypes.DATE,
-         allowNull: false
-       },
-       updateAt: {
-         type: DataTypes.DATE,
-         allowNull: false
-       } 
   },
   {
     tableName: "tipoProducto",
@@ -35,3 +25,6 @@ tipoProducto.init(
     timestamps: true
   }
 );
+
+tipoProducto.hasMany(Producto, { foreignKey: 'tipoProducto_id' });
+//Producto.belongsTo(tipoProducto, { foreignKey: 'tipoProducto_id' });

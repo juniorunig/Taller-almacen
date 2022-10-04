@@ -5,17 +5,12 @@ export class ProductoVenta extends Model {
   public cantidad!: string;
   public precio!: string;
   public total!: string;
-  public createdAt!: Date;
-  public updateAt!: Date;
-
 }
 
 export interface ProductoVentasI {
    cantidad: string;
   precio: string;
   total: string;
-  createdAt: Date;
-  updateAt: Date;
 }
 
 ProductoVenta.init(
@@ -33,18 +28,11 @@ ProductoVenta.init(
         allowNull: false,
         unique: true
       },
-     createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      updateAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      } 
   },
   {
-    tableName: "productoVenta",
+    tableName: "ProductoVenta",
     sequelize: database,
     timestamps: true
   }
 );
+
